@@ -1,0 +1,15 @@
+# 보통은 게임 안에서 /낚시 pos1, pos2, zone create, zone addfish 로 만든다.
+# 찌가 들어온 위치로 판정하므로 수면 높이가 구역 안에 포함되어야 한다.
+# 구역이 겹치면 더 작은 쪽이 적용된다.
+#
+# 형식 예시 (fish의 숫자는 뽑힐 비율을 정하는 가중치):
+# zones:
+#   lake:
+#     world: world
+#     min: {x: 100, y: 60, z: 100}
+#     max: {x: 150, y: 64, z: 150}
+#     fish:
+#       cod: 60
+#       salmon: 30
+#       pufferfish: 10
+zones: {}

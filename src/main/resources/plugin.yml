@@ -1,0 +1,15 @@
+name: StardewFishing
+version: 1.0.0
+main: kr.server.stardewfishing.StardewFishingPlugin
+api-version: '1.21'
+description: 스타듀 밸리 방식의 낚시 미니게임
+softdepend: [ItemsAdder]
+commands:
+  fishing:
+    description: 낚시 플러그인 관리
+    aliases: [낚시]
+    permission: stardewfishing.admin
+permissions:
+  stardewfishing.admin:
+    description: 낚시터, 낚시대, 물고기 관리
+    default: op

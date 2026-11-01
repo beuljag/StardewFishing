@@ -1,0 +1,40 @@
+# bar-size      : 초록 막대의 크기. 트랙 전체 대비 % (5~100). 클수록 쉽다.
+# bite-time     : 찌가 물에 들어간 뒤 물고기가 오기 시작할 때까지의 시간. 틱 단위 (20틱 = 1초).
+#                 바닐라 기본값은 100~600. 이후 물고기가 찌로 다가오는 데 1~4초가 더 걸리고,
+#                 미끼 인챈트(Lure)도 그대로 적용된다.
+# break-chance  : 입질 한 번을 끝낼 때마다(성공/실패 모두) 낚시대가 부서질 확률 % (0~100).
+#
+# item 설정 방법
+#   ItemsAdder : itemsadder: "네임스페이스:아이템ID"
+#                ItemsAdder 아이템의 재료는 반드시 FISHING_ROD 여야 던질 수 있다.
+#                ItemsAdder 명령어나 조합으로 얻은 낚시대도 ID가 같으면 이 능력치가 적용된다.
+#   바닐라     : material: FISHING_ROD 와 custom-model-data 로 리소스팩 모델 지정
+#   공통       : name, lore 로 이름과 설명을 덮어쓸 수 있다.
+rods:
+  basic:
+    bar-size: 22
+    bite-time: {min: 100, max: 400}
+    break-chance: 2.0
+    item:
+      material: FISHING_ROD
+      name: "&f나무 낚시대"
+      lore:
+        - "&7평범한 낚시대"
+
+  iron:
+    bar-size: 30
+    bite-time: {min: 60, max: 240}
+    break-chance: 1.0
+    item:
+      material: FISHING_ROD
+      name: "&b강철 낚시대"
+      lore:
+        - "&7막대가 넓고 입질이 빠르다"
+
+  # ItemsAdder 예시: 아이템 ID를 실제 값으로 바꾼 뒤 주석을 풀어 사용한다.
+  # legend:
+  #   bar-size: 40
+  #   bite-time: {min: 20, max: 100}
+  #   break-chance: 0.2
+  #   item:
+  #     itemsadder: "my_items:legend_rod"

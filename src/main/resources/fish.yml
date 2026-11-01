@@ -1,0 +1,50 @@
+# difficulty : 물고기가 움직이는 빈도와 폭. 스타듀 밸리 기준 15(쉬움) ~ 110(전설).
+# motion     : MIXED  섞어서 움직임
+#              SMOOTH 부드럽게 오르내림
+#              DART   순간적으로 크게 튐
+#              SINKER 아래로 가라앉음
+#              FLOATER 위로 떠오름
+# exp        : 잡았을 때 주는 경험치
+# item       : rods.yml과 같은 형식 (itemsadder / material / name / lore / custom-model-data)
+#
+# 게임 안에서 손에 든 아이템을 등록할 수도 있다: /낚시 fish add <ID> <난이도> <움직임> [경험치]
+fish:
+  cod:
+    difficulty: 20
+    motion: MIXED
+    exp: 3
+    item:
+      material: COD
+      name: "&f대구"
+
+  salmon:
+    difficulty: 40
+    motion: SMOOTH
+    exp: 5
+    item:
+      material: SALMON
+      name: "&c연어"
+
+  pufferfish:
+    difficulty: 70
+    motion: DART
+    exp: 10
+    item:
+      material: PUFFERFISH
+      name: "&e복어"
+
+  tropical:
+    difficulty: 95
+    motion: FLOATER
+    exp: 20
+    item:
+      material: TROPICAL_FISH
+      name: "&d&l전설의 열대어"
+
+  # ItemsAdder 예시
+  # golden_koi:
+  #   difficulty: 110
+  #   motion: DART
+  #   exp: 50
+  #   item:
+  #     itemsadder: "my_items:golden_koi"
