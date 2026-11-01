@@ -129,6 +129,8 @@ zones:
 | `allow-vanilla-outside-zones` | `false`면 낚시터 밖에서 물고기를 낚을 수 없음 |
 | `display.mode` | `TEXT_DISPLAY`(세로 막대) 또는 `ACTIONBAR`(가로 막대) |
 | `display.rows`, `scale`, `distance`, `side-offset` | 막대의 칸 수, 크기, 거리, 옆 위치 |
+| `display.see-through` | `true`면 블록 너머로도 막대가 보이지만 색이 옅어질 수 있음 |
+| `display.colors` | 트랙, 막대, 물고기 색상 (`"#RRGGBB"`) |
 | `messages` | 게임 메시지 문구. `&` 색상 코드 사용 가능 |
 
 파일을 고친 뒤에는 `/낚시 reload`를 입력하면 적용됩니다.

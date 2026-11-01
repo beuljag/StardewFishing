@@ -3,7 +3,6 @@ package kr.server.stardewfishing;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.TextReplacementConfig;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -42,6 +41,11 @@ final class GameSession extends BukkitRunnable {
     private final int rows;
     private final double distance;
     private final double sideOffset;
+    private final TextColor trackColor;
+    private final TextColor barColor;
+    private final TextColor barMissColor;
+    private final TextColor fishColor;
+    private final TextColor fishMissColor;
 
     private TextDisplay display;
     private Component lastFrame;
@@ -60,6 +64,21 @@ final class GameSession extends BukkitRunnable {
         this.rows = Math.max(8, plugin.getConfig().getInt("display.rows", 20));
         this.distance = plugin.getConfig().getDouble("display.distance", 2.5);
         this.sideOffset = plugin.getConfig().getDouble("display.side-offset", 1.0);
+        this.trackColor = configColor("track", "#1E1E1E");
+        this.barColor = configColor("bar", "#00FF00");
+        this.barMissColor = configColor("bar-miss", "#00B400");
+        this.fishColor = configColor("fish", "#00FFFF");
+        this.fishMissColor = configColor("fish-miss", "#FF6A00");
+    }
+
+    private TextColor configColor(String key, String fallback) {
+        String value = plugin.getConfig().getString("display.colors." + key, fallback);
+        TextColor color = TextColor.fromHexString(value);
+        if (color == null) {
+            plugin.getLogger().warning("display.colors." + key + " 값이 잘못되었습니다: " + value);
+            return TextColor.fromHexString(fallback);
+        }
+        return color;
     }
 
     void begin() {
@@ -75,15 +94,16 @@ final class GameSession extends BukkitRunnable {
     private void spawnDisplay() {
         float scale = (float) plugin.getConfig().getDouble("display.scale", 0.4);
         float height = rows * LINE_HEIGHT * scale;
+        boolean seeThrough = plugin.getConfig().getBoolean("display.see-through", false);
         display = player.getWorld().spawn(displayLocation(), TextDisplay.class, entity -> {
             entity.setPersistent(false);
             entity.setVisibleByDefault(false);
             entity.setBillboard(Display.Billboard.CENTER);
             entity.setAlignment(TextDisplay.TextAlignment.LEFT);
             entity.setLineWidth(200);
-            entity.setSeeThrough(true);
+            entity.setSeeThrough(seeThrough);
             entity.setDefaultBackground(false);
-            entity.setBackgroundColor(Color.fromARGB(120, 0, 0, 0));
+            entity.setBackgroundColor(Color.fromARGB(220, 0, 0, 0));
             entity.setBrightness(new Display.Brightness(15, 15));
             entity.setTeleportDuration(1);
             entity.setTransformation(new Transformation(
@@ -149,7 +169,7 @@ final class GameSession extends BukkitRunnable {
             }
             builder.append(Component.text(CELL + CELL + CELL, trackColor(row, fishRow)));
             builder.append(Component.text(" "));
-            builder.append(Component.text(CELL, row >= rows - filled ? progressColor() : NamedTextColor.DARK_GRAY));
+            builder.append(Component.text(CELL, row >= rows - filled ? progressColor() : trackColor));
         }
         return builder.build();
     }
@@ -176,21 +196,21 @@ final class GameSession extends BukkitRunnable {
 
     private TextColor cellColor(boolean isFish, float top, float bottom) {
         if (isFish) {
-            return game.isFishInBar() ? NamedTextColor.AQUA : NamedTextColor.GOLD;
+            return game.isFishInBar() ? fishColor : fishMissColor;
         }
         boolean inBar = bottom > game.barTop() && top < game.barBottom();
         if (inBar) {
-            return game.isFishInBar() ? NamedTextColor.GREEN : NamedTextColor.DARK_GREEN;
+            return game.isFishInBar() ? barColor : barMissColor;
         }
-        return NamedTextColor.DARK_GRAY;
+        return trackColor;
     }
 
     private TextColor progressColor() {
         float progress = game.progress();
         if (progress > 0.66f) {
-            return NamedTextColor.GREEN;
+            return TextColor.color(0x00FF00);
         }
-        return progress > 0.33f ? NamedTextColor.YELLOW : NamedTextColor.RED;
+        return TextColor.color(progress > 0.33f ? 0xFFFF00 : 0xFF2020);
     }
 
     private int rowOf(float y) {

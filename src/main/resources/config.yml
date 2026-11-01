@@ -16,6 +16,15 @@ display:
   scale: 0.4
   distance: 2.5
   side-offset: 1.0
+  # true면 블록 너머로도 막대가 보이지만 색이 옅어질 수 있다.
+  see-through: false
+  # 막대 색상. 반드시 따옴표로 감싼 "#RRGGBB" 형식으로 적는다.
+  colors:
+    track: "#1E1E1E"      # 빈 트랙
+    bar: "#00FF00"        # 막대 (물고기가 안에 있을 때)
+    bar-miss: "#00B400"   # 막대 (물고기가 밖에 있을 때)
+    fish: "#00FFFF"       # 물고기 (막대 안)
+    fish-miss: "#FF6A00"  # 물고기 (막대 밖)
 
 # & 색상 코드와 &#RRGGBB 를 쓸 수 있다.
 messages:
